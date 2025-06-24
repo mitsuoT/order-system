@@ -88,6 +88,34 @@ interface Translations {
   productImage: string
   profit: string
   profitRate: string
+  customerManagement: string
+  customerManagementDescription: string
+  supplierManagement: string
+  supplierManagementDescription: string
+  addCustomer: string
+  editCustomer: string
+  contactPerson: string
+  phone: string
+  email: string
+  address: string
+  registrationDate: string
+  lastOrderDate: string
+  totalOrders: string
+  totalAmount: string
+  activeStatus: string
+  active: string
+  inactive: string
+  approved: string
+  rejected: string
+  requestApproval: string
+  approveCustomer: string
+  rejectCustomer: string
+  partnershipRequest: string
+  partnershipStatus: string
+  availableSuppliers: string
+  mySuppliers: string
+  requestPartnership: string
+  partnershipRequests: string
 }
 
 const translations: Record<Language, Translations> = {
@@ -175,6 +203,34 @@ const translations: Record<Language, Translations> = {
     productImage: "商品画像",
     profit: "利益",
     profitRate: "利益率",
+    customerManagement: "得意先管理",
+    customerManagementDescription: "飲食店との取引関係管理",
+    supplierManagement: "仕入先管理",
+    supplierManagementDescription: "取引卸会社の管理",
+    addCustomer: "得意先追加",
+    editCustomer: "得意先編集",
+    contactPerson: "担当者",
+    phone: "電話番号",
+    email: "メールアドレス",
+    address: "住所",
+    registrationDate: "登録日",
+    lastOrderDate: "最終注文日",
+    totalOrders: "総注文数",
+    totalAmount: "総取引額",
+    activeStatus: "取引状況",
+    active: "取引中",
+    inactive: "取引停止",
+    approved: "承認済み",
+    rejected: "拒否",
+    requestApproval: "承認申請",
+    approveCustomer: "承認",
+    rejectCustomer: "拒否",
+    partnershipRequest: "取引申請",
+    partnershipStatus: "取引状況",
+    availableSuppliers: "利用可能な卸会社",
+    mySuppliers: "取引中の卸会社",
+    requestPartnership: "取引申請",
+    partnershipRequests: "取引申請一覧",
   },
   ko: {
     systemTitle: "식자재 수발주 시스템",
@@ -260,6 +316,34 @@ const translations: Record<Language, Translations> = {
     productImage: "상품이미지",
     profit: "이익",
     profitRate: "이익률",
+    customerManagement: "거래처관리",
+    customerManagementDescription: "음식점과의 거래관계 관리",
+    supplierManagement: "공급업체관리",
+    supplierManagementDescription: "거래 도매업체 관리",
+    addCustomer: "거래처추가",
+    editCustomer: "거래처편집",
+    contactPerson: "담당자",
+    phone: "전화번호",
+    email: "이메일주소",
+    address: "주소",
+    registrationDate: "등록일",
+    lastOrderDate: "최종주문일",
+    totalOrders: "총주문수",
+    totalAmount: "총거래액",
+    activeStatus: "거래상황",
+    active: "거래중",
+    inactive: "거래중단",
+    approved: "승인완료",
+    rejected: "거부",
+    requestApproval: "승인신청",
+    approveCustomer: "승인",
+    rejectCustomer: "거부",
+    partnershipRequest: "거래신청",
+    partnershipStatus: "거래상황",
+    availableSuppliers: "이용가능한 도매업체",
+    mySuppliers: "거래중인 도매업체",
+    requestPartnership: "거래신청",
+    partnershipRequests: "거래신청목록",
   },
 }
 

@@ -7,10 +7,11 @@ import { Badge } from "@/components/ui/badge"
 import { LanguageProvider, useLanguage } from "@/components/language-provider"
 import { RestaurantOrdering } from "@/components/restaurant-ordering"
 import { RestaurantOrderHistory } from "@/components/restaurant-order-history"
-import { ShoppingCart, History, Globe, ArrowLeft } from "lucide-react"
+import { SupplierManagement } from "@/components/supplier-management"
+import { ShoppingCart, History, Building2, Globe, ArrowLeft } from "lucide-react"
 
 function RestaurantPage() {
-  const [activeTab, setActiveTab] = useState<"ordering" | "history">("ordering")
+  const [activeTab, setActiveTab] = useState<"ordering" | "history" | "suppliers">("ordering")
   const { language, setLanguage, t } = useLanguage()
 
   return (
@@ -73,11 +74,25 @@ function RestaurantPage() {
               </div>
             </CardHeader>
           </Card>
+
+          <Card
+            className={`cursor-pointer transition-all ${activeTab === "suppliers" ? "ring-2 ring-orange-500 bg-orange-50" : ""}`}
+            onClick={() => setActiveTab("suppliers")}
+          >
+            <CardHeader className="flex flex-row items-center space-y-0 pb-2">
+              <Building2 className="h-6 w-6 text-orange-600" />
+              <div className="ml-3">
+                <CardTitle className="text-lg">{t.supplierManagement}</CardTitle>
+                <CardDescription>{t.supplierManagementDescription}</CardDescription>
+              </div>
+            </CardHeader>
+          </Card>
         </div>
 
         <div className="bg-white rounded-lg shadow">
           {activeTab === "ordering" && <RestaurantOrdering />}
           {activeTab === "history" && <RestaurantOrderHistory />}
+          {activeTab === "suppliers" && <SupplierManagement />}
         </div>
       </div>
     </div>

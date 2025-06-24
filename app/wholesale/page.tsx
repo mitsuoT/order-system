@@ -8,10 +8,11 @@ import { LanguageProvider, useLanguage } from "@/components/language-provider"
 import { WholesaleManagement } from "@/components/wholesale-management"
 import { OrderManagement } from "@/components/order-management"
 import { ProfitAnalysis } from "@/components/profit-analysis"
-import { Package, ClipboardList, TrendingUp, Globe, ArrowLeft } from "lucide-react"
+import { CustomerManagement } from "@/components/customer-management"
+import { Package, ClipboardList, TrendingUp, Users, Globe, ArrowLeft } from "lucide-react"
 
 function WholesalePage() {
-  const [activeTab, setActiveTab] = useState<"products" | "orders" | "analytics">("products")
+  const [activeTab, setActiveTab] = useState<"products" | "orders" | "analytics" | "customers">("products")
   const { language, setLanguage, t } = useLanguage()
 
   return (
@@ -87,12 +88,26 @@ function WholesalePage() {
               </div>
             </CardHeader>
           </Card>
+
+          <Card
+            className={`cursor-pointer transition-all ${activeTab === "customers" ? "ring-2 ring-orange-500 bg-orange-50" : ""}`}
+            onClick={() => setActiveTab("customers")}
+          >
+            <CardHeader className="flex flex-row items-center space-y-0 pb-2">
+              <Users className="h-6 w-6 text-orange-600" />
+              <div className="ml-3">
+                <CardTitle className="text-lg">{t.customerManagement}</CardTitle>
+                <CardDescription>{t.customerManagementDescription}</CardDescription>
+              </div>
+            </CardHeader>
+          </Card>
         </div>
 
         <div className="bg-white rounded-lg shadow">
           {activeTab === "products" && <WholesaleManagement />}
           {activeTab === "orders" && <OrderManagement />}
           {activeTab === "analytics" && <ProfitAnalysis products={[]} />}
+          {activeTab === "customers" && <CustomerManagement />}
         </div>
       </div>
     </div>
