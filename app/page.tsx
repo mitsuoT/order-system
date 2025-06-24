@@ -1,17 +1,11 @@
 "use client"
-
-import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { LanguageProvider, useLanguage } from "@/components/language-provider"
-import { WholesaleManagement } from "@/components/wholesale-management"
-import { RestaurantOrdering } from "@/components/restaurant-ordering"
-import { OrderManagement } from "@/components/order-management"
-import { Building2, Store, ClipboardList, Globe } from "lucide-react"
+import { Building2, Store, Globe } from "lucide-react"
 
 function HomePage() {
-  const [activeTab, setActiveTab] = useState<"wholesale" | "restaurant" | "orders">("wholesale")
   const { language, setLanguage, t } = useLanguage()
 
   return (
@@ -38,52 +32,76 @@ function HomePage() {
         </div>
       </header>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="text-center mb-12">
+          <h2 className="text-4xl font-bold text-gray-900 mb-4">{t.selectUserType}</h2>
+          <p className="text-xl text-gray-600">{t.selectUserTypeDescription}</p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           <Card
-            className={`cursor-pointer transition-all ${activeTab === "wholesale" ? "ring-2 ring-blue-500" : ""}`}
-            onClick={() => setActiveTab("wholesale")}
+            className="cursor-pointer transition-all hover:shadow-lg hover:scale-105 border-2 hover:border-blue-500"
+            onClick={() => (window.location.href = "/wholesale")}
           >
-            <CardHeader className="flex flex-row items-center space-y-0 pb-2">
-              <Building2 className="h-6 w-6 text-blue-600" />
-              <div className="ml-3">
-                <CardTitle className="text-lg">{t.wholesaleManagement}</CardTitle>
-                <CardDescription>{t.wholesaleDescription}</CardDescription>
+            <CardHeader className="text-center p-8">
+              <div className="mx-auto mb-4 p-4 bg-blue-100 rounded-full w-20 h-20 flex items-center justify-center">
+                <Building2 className="h-10 w-10 text-blue-600" />
+              </div>
+              <CardTitle className="text-2xl mb-2">{t.wholesaleApp}</CardTitle>
+              <CardDescription className="text-lg">{t.wholesaleAppDescription}</CardDescription>
+              <div className="mt-4">
+                <Button className="w-full" size="lg">
+                  {t.enterWholesaleApp}
+                </Button>
               </div>
             </CardHeader>
           </Card>
 
           <Card
-            className={`cursor-pointer transition-all ${activeTab === "restaurant" ? "ring-2 ring-green-500" : ""}`}
-            onClick={() => setActiveTab("restaurant")}
+            className="cursor-pointer transition-all hover:shadow-lg hover:scale-105 border-2 hover:border-green-500"
+            onClick={() => (window.location.href = "/restaurant")}
           >
-            <CardHeader className="flex flex-row items-center space-y-0 pb-2">
-              <Store className="h-6 w-6 text-green-600" />
-              <div className="ml-3">
-                <CardTitle className="text-lg">{t.restaurantOrdering}</CardTitle>
-                <CardDescription>{t.restaurantDescription}</CardDescription>
+            <CardHeader className="text-center p-8">
+              <div className="mx-auto mb-4 p-4 bg-green-100 rounded-full w-20 h-20 flex items-center justify-center">
+                <Store className="h-10 w-10 text-green-600" />
               </div>
-            </CardHeader>
-          </Card>
-
-          <Card
-            className={`cursor-pointer transition-all ${activeTab === "orders" ? "ring-2 ring-purple-500" : ""}`}
-            onClick={() => setActiveTab("orders")}
-          >
-            <CardHeader className="flex flex-row items-center space-y-0 pb-2">
-              <ClipboardList className="h-6 w-6 text-purple-600" />
-              <div className="ml-3">
-                <CardTitle className="text-lg">{t.orderManagement}</CardTitle>
-                <CardDescription>{t.orderDescription}</CardDescription>
+              <CardTitle className="text-2xl mb-2">{t.restaurantApp}</CardTitle>
+              <CardDescription className="text-lg">{t.restaurantAppDescription}</CardDescription>
+              <div className="mt-4">
+                <Button className="w-full" size="lg" variant="outline">
+                  {t.enterRestaurantApp}
+                </Button>
               </div>
             </CardHeader>
           </Card>
         </div>
 
-        <div className="bg-white rounded-lg shadow">
-          {activeTab === "wholesale" && <WholesaleManagement />}
-          {activeTab === "restaurant" && <RestaurantOrdering />}
-          {activeTab === "orders" && <OrderManagement />}
+        <div className="mt-16 text-center">
+          <div className="bg-white rounded-lg shadow p-8 max-w-2xl mx-auto">
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">{t.systemFeatures}</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+              <div>
+                <h4 className="font-semibold text-blue-600 mb-2">{t.wholesaleFeatures}</h4>
+                <ul className="space-y-1 text-sm text-gray-600">
+                  <li>• {t.productManagement}</li>
+                  <li>• {t.inventoryManagement}</li>
+                  <li>• {t.orderManagement}</li>
+                  <li>• {t.pcaIntegration}</li>
+                  <li>• {t.profitAnalysis}</li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-semibold text-green-600 mb-2">{t.restaurantFeatures}</h4>
+                <ul className="space-y-1 text-sm text-gray-600">
+                  <li>• {t.productCatalog}</li>
+                  <li>• {t.easyOrdering}</li>
+                  <li>• {t.orderHistory}</li>
+                  <li>• {t.realTimeInventory}</li>
+                  <li>• {t.multiLanguageSupport}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -7,12 +7,38 @@ type Language = "ja" | "ko"
 interface Translations {
   systemTitle: string
   version: string
+  selectUserType: string
+  selectUserTypeDescription: string
+  wholesaleApp: string
+  wholesaleAppDescription: string
+  restaurantApp: string
+  restaurantAppDescription: string
+  enterWholesaleApp: string
+  enterRestaurantApp: string
+  systemFeatures: string
+  wholesaleFeatures: string
+  restaurantFeatures: string
+  productManagement: string
+  inventoryManagement: string
+  orderManagement: string
+  pcaIntegration: string
+  profitAnalysis: string
+  productCatalog: string
+  easyOrdering: string
+  orderHistory: string
+  realTimeInventory: string
+  multiLanguageSupport: string
+  backToHome: string
+  productManagementDescription: string
+  orderManagementDescription: string
+  profitAnalysisDescription: string
+  productOrdering: string
+  productOrderingDescription: string
+  orderHistoryDescription: string
   wholesaleManagement: string
   wholesaleDescription: string
   restaurantOrdering: string
   restaurantDescription: string
-  orderManagement: string
-  orderDescription: string
   productCode: string
   productName: string
   category: string
@@ -53,7 +79,6 @@ interface Translations {
   addToCart: string
   cart: string
   checkout: string
-  orderHistory: string
   taxCategory: string
   remarks: string
   salesDate: string
@@ -69,12 +94,38 @@ const translations: Record<Language, Translations> = {
   ja: {
     systemTitle: "食材受発注システム",
     version: "v1.0",
+    selectUserType: "ユーザータイプを選択",
+    selectUserTypeDescription: "卸会社または飲食店のアプリを選択してください",
+    wholesaleApp: "卸会社アプリ",
+    wholesaleAppDescription: "商品管理・受注管理・利益分析",
+    restaurantApp: "飲食店アプリ",
+    restaurantAppDescription: "商品注文・注文履歴確認",
+    enterWholesaleApp: "卸会社アプリに入る",
+    enterRestaurantApp: "飲食店アプリに入る",
+    systemFeatures: "システム機能",
+    wholesaleFeatures: "卸会社向け機能",
+    restaurantFeatures: "飲食店向け機能",
+    productManagement: "商品管理",
+    inventoryManagement: "在庫管理",
+    orderManagement: "受注管理",
+    pcaIntegration: "PCA連携",
+    profitAnalysis: "利益分析",
+    productCatalog: "商品カタログ",
+    easyOrdering: "簡単注文",
+    orderHistory: "注文履歴",
+    realTimeInventory: "リアルタイム在庫",
+    multiLanguageSupport: "多言語対応",
+    backToHome: "ホームに戻る",
+    productManagementDescription: "商品登録・編集・在庫管理",
+    orderManagementDescription: "注文確認・ステータス管理・PCA連携",
+    profitAnalysisDescription: "利益率分析・収益性レポート",
+    productOrdering: "商品注文",
+    productOrderingDescription: "商品カタログから注文",
+    orderHistoryDescription: "過去の注文履歴確認",
     wholesaleManagement: "卸会社管理",
     wholesaleDescription: "商品登録・在庫管理",
     restaurantOrdering: "飲食店注文",
     restaurantDescription: "商品注文・履歴確認",
-    orderManagement: "受注管理",
-    orderDescription: "注文確認・PCA連携",
     productCode: "商品コード",
     productName: "商品名",
     category: "カテゴリー",
@@ -115,7 +166,6 @@ const translations: Record<Language, Translations> = {
     addToCart: "カートに追加",
     cart: "カート",
     checkout: "注文確定",
-    orderHistory: "注文履歴",
     taxCategory: "税区分",
     remarks: "備考",
     salesDate: "売上日付",
@@ -129,12 +179,38 @@ const translations: Record<Language, Translations> = {
   ko: {
     systemTitle: "식자재 수발주 시스템",
     version: "v1.0",
+    selectUserType: "사용자 유형 선택",
+    selectUserTypeDescription: "도매업체 또는 음식점 앱을 선택해주세요",
+    wholesaleApp: "도매업체 앱",
+    wholesaleAppDescription: "상품관리・수주관리・이익분석",
+    restaurantApp: "음식점 앱",
+    restaurantAppDescription: "상품주문・주문이력확인",
+    enterWholesaleApp: "도매업체 앱 입장",
+    enterRestaurantApp: "음식점 앱 입장",
+    systemFeatures: "시스템 기능",
+    wholesaleFeatures: "도매업체용 기능",
+    restaurantFeatures: "음식점용 기능",
+    productManagement: "상품관리",
+    inventoryManagement: "재고관리",
+    orderManagement: "수주관리",
+    pcaIntegration: "PCA연계",
+    profitAnalysis: "이익분석",
+    productCatalog: "상품카탈로그",
+    easyOrdering: "간편주문",
+    orderHistory: "주문이력",
+    realTimeInventory: "실시간재고",
+    multiLanguageSupport: "다국어지원",
+    backToHome: "홈으로 돌아가기",
+    productManagementDescription: "상품등록・편집・재고관리",
+    orderManagementDescription: "주문확인・상태관리・PCA연계",
+    profitAnalysisDescription: "이익률분석・수익성리포트",
+    productOrdering: "상품주문",
+    productOrderingDescription: "상품카탈로그에서 주문",
+    orderHistoryDescription: "과거 주문이력 확인",
     wholesaleManagement: "도매업체 관리",
     wholesaleDescription: "상품등록・재고관리",
     restaurantOrdering: "음식점 주문",
     restaurantDescription: "상품주문・이력확인",
-    orderManagement: "수주관리",
-    orderDescription: "주문확인・PCA연계",
     productCode: "상품코드",
     productName: "상품명",
     category: "카테고리",
@@ -175,7 +251,6 @@ const translations: Record<Language, Translations> = {
     addToCart: "장바구니 추가",
     cart: "장바구니",
     checkout: "주문확정",
-    orderHistory: "주문이력",
     taxCategory: "세금구분",
     remarks: "비고",
     salesDate: "매출일자",
