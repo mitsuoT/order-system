@@ -92,30 +92,32 @@ interface Translations {
   customerManagementDescription: string
   supplierManagement: string
   supplierManagementDescription: string
-  addCustomer: string
-  editCustomer: string
-  contactPerson: string
-  phone: string
-  email: string
-  address: string
-  registrationDate: string
-  lastOrderDate: string
-  totalOrders: string
-  totalAmount: string
-  activeStatus: string
+  topicManagement: string
+  topicManagementDescription: string
+  topics: string
+  addTopic: string
+  editTopic: string
+  title: string
+  content: string
+  priority: string
+  publishDate: string
+  expiryDate: string
   active: string
   inactive: string
-  approved: string
-  rejected: string
-  requestApproval: string
-  approveCustomer: string
-  rejectCustomer: string
-  partnershipRequest: string
-  partnershipStatus: string
-  availableSuppliers: string
-  mySuppliers: string
-  requestPartnership: string
-  partnershipRequests: string
+  high: string
+  medium: string
+  low: string
+  news: string
+  promotion: string
+  maintenance: string
+  announcement: string
+  searchProducts: string
+  allCategories: string
+  searchPlaceholder: string
+  productsFound: string
+  selectSupplier: string
+  noSupplierSelected: string
+  supplierRequired: string
 }
 
 const translations: Record<Language, Translations> = {
@@ -206,31 +208,33 @@ const translations: Record<Language, Translations> = {
     customerManagement: "得意先管理",
     customerManagementDescription: "飲食店との取引関係管理",
     supplierManagement: "仕入先管理",
-    supplierManagementDescription: "取引卸会社の管理",
-    addCustomer: "得意先追加",
-    editCustomer: "得意先編集",
-    contactPerson: "担当者",
-    phone: "電話番号",
-    email: "メールアドレス",
-    address: "住所",
-    registrationDate: "登録日",
-    lastOrderDate: "最終注文日",
-    totalOrders: "総注文数",
-    totalAmount: "総取引額",
-    activeStatus: "取引状況",
-    active: "取引中",
-    inactive: "取引停止",
-    approved: "承認済み",
-    rejected: "拒否",
-    requestApproval: "承認申請",
-    approveCustomer: "承認",
-    rejectCustomer: "拒否",
-    partnershipRequest: "取引申請",
-    partnershipStatus: "取引状況",
-    availableSuppliers: "利用可能な卸会社",
-    mySuppliers: "取引中の卸会社",
-    requestPartnership: "取引申請",
-    partnershipRequests: "取引申請一覧",
+    supplierManagementDescription: "卸会社との取引関係管理",
+    topicManagement: "トピック管理",
+    topicManagementDescription: "お知らせ・ニュースの管理",
+    topics: "お知らせ・ニュース",
+    addTopic: "トピック追加",
+    editTopic: "トピック編集",
+    title: "タイトル",
+    content: "内容",
+    priority: "優先度",
+    publishDate: "公開日",
+    expiryDate: "終了日",
+    active: "有効",
+    inactive: "無効",
+    high: "重要",
+    medium: "通常",
+    low: "参考",
+    news: "ニュース",
+    promotion: "プロモーション",
+    maintenance: "メンテナンス",
+    announcement: "お知らせ",
+    searchProducts: "商品検索",
+    allCategories: "全カテゴリー",
+    searchPlaceholder: "商品名・商品コードで検索",
+    productsFound: "件の商品が見つかりました",
+    selectSupplier: "仕入先を選択",
+    noSupplierSelected: "仕入先が選択されていません",
+    supplierRequired: "仕入先の選択は必須です",
   },
   ko: {
     systemTitle: "식자재 수발주 시스템",
@@ -319,31 +323,33 @@ const translations: Record<Language, Translations> = {
     customerManagement: "거래처관리",
     customerManagementDescription: "음식점과의 거래관계 관리",
     supplierManagement: "공급업체관리",
-    supplierManagementDescription: "거래 도매업체 관리",
-    addCustomer: "거래처추가",
-    editCustomer: "거래처편집",
-    contactPerson: "담당자",
-    phone: "전화번호",
-    email: "이메일주소",
-    address: "주소",
-    registrationDate: "등록일",
-    lastOrderDate: "최종주문일",
-    totalOrders: "총주문수",
-    totalAmount: "총거래액",
-    activeStatus: "거래상황",
-    active: "거래중",
-    inactive: "거래중단",
-    approved: "승인완료",
-    rejected: "거부",
-    requestApproval: "승인신청",
-    approveCustomer: "승인",
-    rejectCustomer: "거부",
-    partnershipRequest: "거래신청",
-    partnershipStatus: "거래상황",
-    availableSuppliers: "이용가능한 도매업체",
-    mySuppliers: "거래중인 도매업체",
-    requestPartnership: "거래신청",
-    partnershipRequests: "거래신청목록",
+    supplierManagementDescription: "도매업체와의 거래관계 관리",
+    topicManagement: "토픽관리",
+    topicManagementDescription: "공지사항・뉴스 관리",
+    topics: "공지사항・뉴스",
+    addTopic: "토픽추가",
+    editTopic: "토픽편집",
+    title: "제목",
+    content: "내용",
+    priority: "우선순위",
+    publishDate: "공개일",
+    expiryDate: "종료일",
+    active: "활성",
+    inactive: "비활성",
+    high: "중요",
+    medium: "보통",
+    low: "참고",
+    news: "뉴스",
+    promotion: "프로모션",
+    maintenance: "점검",
+    announcement: "공지사항",
+    searchProducts: "상품검색",
+    allCategories: "전체 카테고리",
+    searchPlaceholder: "상품명・상품코드로 검색",
+    productsFound: "개의 상품을 찾았습니다",
+    selectSupplier: "공급업체 선택",
+    noSupplierSelected: "공급업체가 선택되지 않았습니다",
+    supplierRequired: "공급업체 선택은 필수입니다",
   },
 }
 

@@ -99,8 +99,19 @@ export function OrderManagement() {
       備考: `注文番号: ${order.id}`,
     }))
 
-    // CSVファイルの生成とダウンロード
-    const headers = Object.keys(csvData[0])
+    // 日本語ヘッダーを追加
+    const headers = [
+      "売上日付",
+      "得意先コード",
+      "得意先名",
+      "商品コード",
+      "商品名",
+      "数量",
+      "単価",
+      "金額",
+      "税区分",
+      "備考",
+    ]
     const csvContent = [
       headers.join(","),
       ...csvData.map((row) => headers.map((header) => `"${row[header as keyof typeof row]}"`).join(",")),
@@ -134,7 +145,19 @@ export function OrderManagement() {
       })),
     )
 
-    const headers = Object.keys(allItems[0])
+    const headers = [
+      "注文番号",
+      "売上日付",
+      "得意先コード",
+      "得意先名",
+      "商品コード",
+      "商品名",
+      "数量",
+      "単価",
+      "金額",
+      "税区分",
+      "備考",
+    ]
     const csvContent = [
       headers.join(","),
       ...allItems.map((row) => headers.map((header) => `"${row[header as keyof typeof row]}"`).join(",")),

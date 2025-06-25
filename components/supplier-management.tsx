@@ -2,267 +2,237 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { useLanguage } from "@/components/language-provider"
-import { Search, Building2, Send, Clock, CheckCircle } from "lucide-react"
+import { Building2, Phone, Mail, MapPin, Send } from "lucide-react"
 
 interface Supplier {
   id: string
   code: string
   name: string
-  nameKo?: string
+  nameKo: string
   contactPerson: string
   phone: string
   email: string
   address: string
-  description: string
-  productCategories: string[]
+  categories: string[]
   status: "available" | "requested" | "approved" | "rejected"
   requestDate?: string
-}
-
-interface PartnershipRequest {
-  id: string
-  supplierId: string
-  supplierName: string
-  requestDate: string
-  status: "pending" | "approved" | "rejected"
-  message: string
+  approvalDate?: string
+  totalOrders: number
+  totalAmount: number
 }
 
 export function SupplierManagement() {
   const { t } = useLanguage()
-  const [searchTerm, setSearchTerm] = useState("")
-  const [activeTab, setActiveTab] = useState<"available" | "my-suppliers" | "requests">("available")
-  const [isRequestDialogOpen, setIsRequestDialogOpen] = useState(false)
-  const [selectedSupplier, setSelectedSupplier] = useState<Supplier | null>(null)
-  const [requestMessage, setRequestMessage] = useState("")
-
-  const [suppliers] = useState<Supplier[]>([
+  const [suppliers, setSuppliers] = useState<Supplier[]>([
     {
       id: "1",
-      code: "WS001",
-      name: "東京食材卸",
-      nameKo: "도쿄식자재도매",
-      contactPerson: "佐藤太郎",
+      code: "WHOLE001",
+      name: "田中食品卸",
+      nameKo: "다나카 식품 도매",
+      contactPerson: "田中商事",
       phone: "03-1111-2222",
-      email: "sato@tokyo-foods.jp",
-      address: "東京都中央区築地1-1-1",
-      description: "新鮮な魚介類と野菜を中心に取り扱う老舗卸会社",
-      productCategories: ["seafood", "vegetables"],
+      email: "info@tanaka-foods.com",
+      address: "東京都中央区築地...",
+      categories: ["vegetables", "meat", "seafood"],
       status: "approved",
-      requestDate: "2024-01-01",
+      requestDate: "2024-01-10",
+      approvalDate: "2024-01-12",
+      totalOrders: 25,
+      totalAmount: 850000,
     },
     {
       id: "2",
-      code: "WS002",
-      name: "関西肉類卸売",
-      nameKo: "간사이육류도매",
-      contactPerson: "田中花子",
-      phone: "06-3333-4444",
-      email: "tanaka@kansai-meat.jp",
-      address: "大阪府大阪市中央区1-2-3",
-      description: "高品質な国産肉を専門に扱う卸会社",
-      productCategories: ["meat"],
-      status: "available",
+      code: "WHOLE002",
+      name: "山田水産",
+      nameKo: "야마다 수산",
+      contactPerson: "山田太郎",
+      phone: "03-2222-3333",
+      email: "info@yamada-suisan.com",
+      address: "東京都江東区豊洲...",
+      categories: ["seafood"],
+      status: "approved",
+      requestDate: "2024-02-05",
+      approvalDate: "2024-02-07",
+      totalOrders: 18,
+      totalAmount: 620000,
     },
     {
       id: "3",
-      code: "WS003",
-      name: "九州農産物流通",
-      nameKo: "규슈농산물유통",
-      contactPerson: "山田次郎",
-      phone: "092-5555-6666",
-      email: "yamada@kyushu-agri.jp",
-      address: "福岡県福岡市博多区2-3-4",
-      description: "九州産の新鮮な野菜と果物を全国に配送",
-      productCategories: ["vegetables", "grains"],
-      status: "requested",
-      requestDate: "2024-01-10",
+      code: "WHOLE003",
+      name: "佐藤青果",
+      nameKo: "사토 청과",
+      contactPerson: "佐藤花子",
+      phone: "03-3333-4444",
+      email: "info@sato-seika.com",
+      address: "東京都大田区大森...",
+      categories: ["vegetables", "grains"],
+      status: "available",
+      totalOrders: 0,
+      totalAmount: 0,
     },
-  ])
-
-  const [partnershipRequests] = useState<PartnershipRequest[]>([
     {
-      id: "1",
-      supplierId: "3",
-      supplierName: "九州農産物流通",
-      requestDate: "2024-01-10",
-      status: "pending",
-      message: "新鮮な九州産野菜の仕入れを希望します。",
+      id: "4",
+      code: "WHOLE004",
+      name: "鈴木畜産",
+      nameKo: "스즈키 축산",
+      contactPerson: "鈴木次郎",
+      phone: "03-4444-5555",
+      email: "info@suzuki-meat.com",
+      address: "東京都品川区...",
+      categories: ["meat", "dairy"],
+      status: "requested",
+      requestDate: "2024-12-15",
+      totalOrders: 0,
+      totalAmount: 0,
     },
   ])
 
-  const categoryLabels = {
-    vegetables: t.vegetables,
-    meat: t.meat,
-    seafood: t.seafood,
-    dairy: t.dairy,
-    grains: t.grains,
-    condiments: t.condiments,
+  const categories = [
+    { value: "vegetables", label: t.vegetables, color: "bg-green-100 text-green-800" },
+    { value: "meat", label: t.meat, color: "bg-red-100 text-red-800" },
+    { value: "seafood", label: t.seafood, color: "bg-blue-100 text-blue-800" },
+    { value: "dairy", label: t.dairy, color: "bg-yellow-100 text-yellow-800" },
+    { value: "grains", label: t.grains, color: "bg-orange-100 text-orange-800" },
+    { value: "condiments", label: t.condiments, color: "bg-purple-100 text-purple-800" },
+  ]
+
+  const statusOptions = [
+    { value: "available", label: "利用可能", color: "bg-gray-100 text-gray-800" },
+    { value: "requested", label: "申請中", color: "bg-yellow-100 text-yellow-800" },
+    { value: "approved", label: "承認済み", color: "bg-green-100 text-green-800" },
+    { value: "rejected", label: "拒否", color: "bg-red-100 text-red-800" },
+  ]
+
+  const handleRequestPartnership = (supplierId: string) => {
+    setSuppliers(
+      suppliers.map((supplier) =>
+        supplier.id === supplierId
+          ? {
+              ...supplier,
+              status: "requested" as const,
+              requestDate: new Date().toISOString().split("T")[0],
+            }
+          : supplier,
+      ),
+    )
   }
 
-  const handleRequestPartnership = (supplier: Supplier) => {
-    setSelectedSupplier(supplier)
-    setIsRequestDialogOpen(true)
-  }
-
-  const handleSendRequest = () => {
-    if (selectedSupplier) {
-      // ここで取引申請の処理を実装
-      alert(`${selectedSupplier.name}に取引申請を送信しました`)
-      setIsRequestDialogOpen(false)
-      setRequestMessage("")
-      setSelectedSupplier(null)
-    }
-  }
-
-  const filteredSuppliers = suppliers.filter((supplier) => {
-    const matchesSearch =
-      supplier.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      supplier.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      supplier.contactPerson.toLowerCase().includes(searchTerm.toLowerCase())
-
-    switch (activeTab) {
-      case "available":
-        return matchesSearch && supplier.status === "available"
-      case "my-suppliers":
-        return matchesSearch && supplier.status === "approved"
-      case "requests":
-        return matchesSearch && (supplier.status === "requested" || supplier.status === "rejected")
-      default:
-        return matchesSearch
-    }
-  })
-
-  const getStatusBadge = (status: string) => {
-    switch (status) {
-      case "available":
-        return <Badge className="bg-green-100 text-green-800">利用可能</Badge>
-      case "requested":
-        return <Badge className="bg-yellow-100 text-yellow-800">申請中</Badge>
-      case "approved":
-        return <Badge className="bg-blue-100 text-blue-800">取引中</Badge>
-      case "rejected":
-        return <Badge className="bg-red-100 text-red-800">拒否</Badge>
-      default:
-        return <Badge>{status}</Badge>
-    }
-  }
+  const approvedSuppliers = suppliers.filter((s) => s.status === "approved").length
+  const requestedSuppliers = suppliers.filter((s) => s.status === "requested").length
+  const totalAmount = suppliers.reduce((sum, s) => sum + s.totalAmount, 0)
 
   return (
     <div className="p-6">
       <div className="flex justify-between items-center mb-6">
-        <div>
-          <h2 className="text-2xl font-bold">{t.supplierManagement}</h2>
-          <p className="text-gray-600">{t.supplierManagementDescription}</p>
-        </div>
+        <h2 className="text-2xl font-bold">{t.supplierManagement}</h2>
       </div>
 
-      {/* タブ */}
-      <div className="flex space-x-4 mb-6">
-        <Button
-          variant={activeTab === "available" ? "default" : "outline"}
-          onClick={() => setActiveTab("available")}
-          className="flex items-center space-x-2"
-        >
-          <Building2 className="h-4 w-4" />
-          <span>{t.availableSuppliers}</span>
-        </Button>
-        <Button
-          variant={activeTab === "my-suppliers" ? "default" : "outline"}
-          onClick={() => setActiveTab("my-suppliers")}
-          className="flex items-center space-x-2"
-        >
-          <CheckCircle className="h-4 w-4" />
-          <span>{t.mySuppliers}</span>
-        </Button>
-        <Button
-          variant={activeTab === "requests" ? "default" : "outline"}
-          onClick={() => setActiveTab("requests")}
-          className="flex items-center space-x-2"
-        >
-          <Clock className="h-4 w-4" />
-          <span>{t.partnershipRequests}</span>
-        </Button>
-      </div>
-
-      {/* 検索 */}
-      <div className="relative mb-6">
-        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-        <Input
-          placeholder="卸会社名・コード・担当者で検索"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="pl-10"
-        />
+      {/* 統計カード */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+        <Card>
+          <CardContent className="p-4">
+            <div className="flex items-center space-x-2">
+              <Building2 className="h-5 w-5 text-blue-600" />
+              <div>
+                <p className="text-sm text-gray-600">利用可能業者</p>
+                <p className="text-2xl font-bold">{suppliers.length}</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-4">
+            <div className="flex items-center space-x-2">
+              <Phone className="h-5 w-5 text-green-600" />
+              <div>
+                <p className="text-sm text-gray-600">取引中</p>
+                <p className="text-2xl font-bold">{approvedSuppliers}</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-4">
+            <div className="flex items-center space-x-2">
+              <Mail className="h-5 w-5 text-yellow-600" />
+              <div>
+                <p className="text-sm text-gray-600">申請中</p>
+                <p className="text-2xl font-bold">{requestedSuppliers}</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-4">
+            <div className="flex items-center space-x-2">
+              <MapPin className="h-5 w-5 text-purple-600" />
+              <div>
+                <p className="text-sm text-gray-600">総取引額</p>
+                <p className="text-2xl font-bold">¥{totalAmount.toLocaleString()}</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
       </div>
 
       <Card>
+        <CardHeader>
+          <CardTitle>仕入先一覧</CardTitle>
+        </CardHeader>
         <CardContent className="p-0">
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>卸会社コード</TableHead>
-                <TableHead>卸会社名</TableHead>
+                <TableHead>業者コード</TableHead>
+                <TableHead>業者名</TableHead>
                 <TableHead>担当者</TableHead>
-                <TableHead>連絡先</TableHead>
                 <TableHead>取扱カテゴリー</TableHead>
                 <TableHead>ステータス</TableHead>
+                <TableHead>申請日</TableHead>
+                <TableHead>承認日</TableHead>
+                <TableHead>注文回数</TableHead>
+                <TableHead>取引額</TableHead>
                 <TableHead>操作</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {filteredSuppliers.map((supplier) => (
+              {suppliers.map((supplier) => (
                 <TableRow key={supplier.id}>
                   <TableCell className="font-medium">{supplier.code}</TableCell>
                   <TableCell>
                     <div>
-                      <p className="font-medium">{supplier.name}</p>
-                      {supplier.nameKo && <p className="text-sm text-gray-500">{supplier.nameKo}</p>}
-                      <p className="text-xs text-gray-400 mt-1">{supplier.description}</p>
+                      <div className="font-medium">{supplier.name}</div>
+                      <div className="text-sm text-gray-500">{supplier.nameKo}</div>
                     </div>
                   </TableCell>
                   <TableCell>{supplier.contactPerson}</TableCell>
                   <TableCell>
-                    <div className="text-sm">
-                      <p>{supplier.phone}</p>
-                      <p className="text-gray-500">{supplier.email}</p>
-                    </div>
-                  </TableCell>
-                  <TableCell>
                     <div className="flex flex-wrap gap-1">
-                      {supplier.productCategories.map((category) => (
-                        <Badge key={category} variant="outline" className="text-xs">
-                          {categoryLabels[category as keyof typeof categoryLabels]}
+                      {supplier.categories.map((cat) => (
+                        <Badge key={cat} className={categories.find((c) => c.value === cat)?.color} variant="secondary">
+                          {categories.find((c) => c.value === cat)?.label}
                         </Badge>
                       ))}
                     </div>
                   </TableCell>
-                  <TableCell>{getStatusBadge(supplier.status)}</TableCell>
+                  <TableCell>
+                    <Badge className={statusOptions.find((s) => s.value === supplier.status)?.color}>
+                      {statusOptions.find((s) => s.value === supplier.status)?.label}
+                    </Badge>
+                  </TableCell>
+                  <TableCell>{supplier.requestDate || "-"}</TableCell>
+                  <TableCell>{supplier.approvalDate || "-"}</TableCell>
+                  <TableCell>{supplier.totalOrders}</TableCell>
+                  <TableCell>¥{supplier.totalAmount.toLocaleString()}</TableCell>
                   <TableCell>
                     {supplier.status === "available" && (
-                      <Button
-                        size="sm"
-                        onClick={() => handleRequestPartnership(supplier)}
-                        className="flex items-center space-x-1"
-                      >
-                        <Send className="h-4 w-4" />
-                        <span>申請</span>
-                      </Button>
-                    )}
-                    {supplier.status === "approved" && (
-                      <Button size="sm" variant="outline" disabled>
-                        取引中
-                      </Button>
-                    )}
-                    {supplier.status === "requested" && (
-                      <Button size="sm" variant="outline" disabled>
-                        申請中
+                      <Button size="sm" onClick={() => handleRequestPartnership(supplier.id)}>
+                        <Send className="h-4 w-4 mr-1" />
+                        申請
                       </Button>
                     )}
                   </TableCell>
@@ -272,48 +242,6 @@ export function SupplierManagement() {
           </Table>
         </CardContent>
       </Card>
-
-      {/* 取引申請ダイアログ */}
-      <Dialog open={isRequestDialogOpen} onOpenChange={setIsRequestDialogOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>{t.partnershipRequest}</DialogTitle>
-          </DialogHeader>
-          {selectedSupplier && (
-            <div className="space-y-4">
-              <div className="p-4 bg-gray-50 rounded">
-                <h3 className="font-medium">{selectedSupplier.name}</h3>
-                <p className="text-sm text-gray-600">{selectedSupplier.description}</p>
-                <div className="flex flex-wrap gap-1 mt-2">
-                  {selectedSupplier.productCategories.map((category) => (
-                    <Badge key={category} variant="outline" className="text-xs">
-                      {categoryLabels[category as keyof typeof categoryLabels]}
-                    </Badge>
-                  ))}
-                </div>
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-2">申請メッセージ</label>
-                <textarea
-                  className="w-full p-3 border rounded-md resize-none"
-                  rows={4}
-                  placeholder="取引を希望する理由や要望を入力してください"
-                  value={requestMessage}
-                  onChange={(e) => setRequestMessage(e.target.value)}
-                />
-              </div>
-              <div className="flex space-x-2">
-                <Button onClick={handleSendRequest} className="flex-1">
-                  申請送信
-                </Button>
-                <Button variant="outline" onClick={() => setIsRequestDialogOpen(false)} className="flex-1">
-                  キャンセル
-                </Button>
-              </div>
-            </div>
-          )}
-        </DialogContent>
-      </Dialog>
     </div>
   )
 }

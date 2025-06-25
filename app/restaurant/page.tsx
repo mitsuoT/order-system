@@ -9,6 +9,7 @@ import { RestaurantOrdering } from "@/components/restaurant-ordering"
 import { RestaurantOrderHistory } from "@/components/restaurant-order-history"
 import { SupplierManagement } from "@/components/supplier-management"
 import { ShoppingCart, History, Building2, Globe, ArrowLeft } from "lucide-react"
+import { TopicDisplay } from "@/components/topic-display"
 
 function RestaurantPage() {
   const [activeTab, setActiveTab] = useState<"ordering" | "history" | "suppliers">("ordering")
@@ -48,6 +49,12 @@ function RestaurantPage() {
       </header>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* トピック表示エリアを追加 */}
+        <div className="mb-8">
+          <TopicDisplay />
+        </div>
+
+        {/* 既存のグリッド */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
           <Card
             className={`cursor-pointer transition-all ${activeTab === "ordering" ? "ring-2 ring-green-500 bg-green-50" : ""}`}

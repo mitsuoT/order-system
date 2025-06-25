@@ -9,10 +9,11 @@ import { WholesaleManagement } from "@/components/wholesale-management"
 import { OrderManagement } from "@/components/order-management"
 import { ProfitAnalysis } from "@/components/profit-analysis"
 import { CustomerManagement } from "@/components/customer-management"
-import { Package, ClipboardList, TrendingUp, Users, Globe, ArrowLeft } from "lucide-react"
+import { TopicManagement } from "@/components/topic-management"
+import { Package, ClipboardList, TrendingUp, Users, MessageSquare, Globe, ArrowLeft } from "lucide-react"
 
 function WholesalePage() {
-  const [activeTab, setActiveTab] = useState<"products" | "orders" | "analytics" | "customers">("products")
+  const [activeTab, setActiveTab] = useState<"products" | "orders" | "analytics" | "customers" | "topics">("products")
   const { language, setLanguage, t } = useLanguage()
 
   return (
@@ -48,8 +49,8 @@ function WholesalePage() {
         </div>
       </header>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <div className="max-w-7xl mx-auto px:4 sm:px-6 lg:px-8 py-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
           <Card
             className={`cursor-pointer transition-all ${activeTab === "products" ? "ring-2 ring-blue-500 bg-blue-50" : ""}`}
             onClick={() => setActiveTab("products")}
@@ -101,6 +102,19 @@ function WholesalePage() {
               </div>
             </CardHeader>
           </Card>
+
+          <Card
+            className={`cursor-pointer transition-all ${activeTab === "topics" ? "ring-2 ring-indigo-500 bg-indigo-50" : ""}`}
+            onClick={() => setActiveTab("topics")}
+          >
+            <CardHeader className="flex flex-row items-center space-y-0 pb-2">
+              <MessageSquare className="h-6 w-6 text-indigo-600" />
+              <div className="ml-3">
+                <CardTitle className="text-lg">{t.topicManagement}</CardTitle>
+                <CardDescription>{t.topicManagementDescription}</CardDescription>
+              </div>
+            </CardHeader>
+          </Card>
         </div>
 
         <div className="bg-white rounded-lg shadow">
@@ -108,6 +122,7 @@ function WholesalePage() {
           {activeTab === "orders" && <OrderManagement />}
           {activeTab === "analytics" && <ProfitAnalysis products={[]} />}
           {activeTab === "customers" && <CustomerManagement />}
+          {activeTab === "topics" && <TopicManagement />}
         </div>
       </div>
     </div>
